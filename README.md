@@ -17,7 +17,7 @@
 
 1. De acuerdo con lo revisado en las lecturas, complete las clases CountThread, para que las mismas definan el ciclo de vida de un hilo que imprima por pantalla los números entre A y B.
 
-Para la clase ```CountThread```, la completamos de la siguiente forma:
+**Para realizar esta parte, completamos la clase ```CountThread``` de la siguiente forma:**
 
 ```java
 public class CountThread implements Runnable{
@@ -27,7 +27,6 @@ public class CountThread implements Runnable{
         this.num1 = num1;
         this.num2 = num2;
     }
-
     @Override
     public void run(){
         for (int i=num1; i<=num2; i++){
@@ -42,6 +41,79 @@ public class CountThread implements Runnable{
 	2. Inicie los tres hilos con 'start()'.
 	3. Ejecute y revise la salida por pantalla. 
 	4. Cambie el incio con 'start()' por 'run()'. Cómo cambia la salida?, por qué?.
+	
+**Primero completamos la clase ```CountMainThreads```, en la cual iniciamos los tres hilos con ```start()```, quedando de la siguiente forma:**
+
+```java
+public class CountThreadsMain {
+    public static void main(String a[]){
+        CountThread countThread1 = new CountThread(0,99);
+        CountThread countThread2 = new CountThread(99,199);
+        CountThread countThread3 = new CountThread(200,299);
+
+        Thread hilo1 = new Thread(countThread1);
+        Thread hilo2 = new Thread(countThread2);
+        Thread hilo3 = new Thread(countThread3);
+
+        System.out.println("START THREADS");
+        hilo1.start();
+        hilo2.start();
+        hilo3.start();
+    }  
+}
+```
+
+**Luego de ejecutarlo, la salida por pantalla es la siguiente:**
+
+```
+START THREADS
+0
+1
+2
+200
+99
+100
+101
+3
+4
+5
+6
+7
+102
+201
+202
+203
+204
+103
+8
+```
+
+**Luego de cambiar el incio con ```start()``` por ```run()```, al ejecutar la salida por pantalla queda de la siguiente forma:**
+
+```
+RUN THREADS
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+```
+
+**Como vemos la salida cuando estaba en ```start()``` es diferente a la de ```run()```**
 
 **Parte II - Ejercicio Black List Search**
 
