@@ -22,8 +22,6 @@ public class PiCalcTest {
     public void setUp() {
     }
     /*
-
-
     @Test
     public void piGenTest() throws Exception {
 
@@ -50,5 +48,5 @@ public class PiCalcTest {
             }
         }
     }
-     */
+    */
 }
