@@ -88,7 +88,33 @@
 	8
 	```
 
-	**Luego de cambiar el incio con ```start()``` por ```run()```, al ejecutar la salida por pantalla queda de la siguiente forma:**
+	**Luego de cambiar el incio con ```start()``` por ```run()```, la clase ```CountThreadsMain``` queda de la siguiente forma:**
+	
+	```java
+	public class CountThreadsMain { 
+    		public static void main(String a[]){
+        		CountThread countThread1 = new CountThread(0,99);
+        		CountThread countThread2 = new CountThread(99,199);
+        		CountThread countThread3 = new CountThread(200,299);
+
+        		Thread hilo1 = new Thread(countThread1);
+        		Thread hilo2 = new Thread(countThread2);
+        		Thread hilo3 = new Thread(countThread3);
+        		/**
+        		System.out.println("START THREADS");
+        		hilo1.start();
+        		hilo2.start();
+        		hilo3.start();
+        		*/
+        		System.out.println("RUN THREADS");
+        		hilo1.run();
+        		hilo2.run();
+        		hilo3.run();
+    		}  
+	}
+	```
+	
+	**Al ejecutarlo, la salida por pantalla queda de la siguiente forma:**
 
 	```
 	RUN THREADS
