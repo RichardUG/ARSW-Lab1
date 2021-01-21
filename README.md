@@ -17,24 +17,24 @@
 
 1. De acuerdo con lo revisado en las lecturas, complete las clases CountThread, para que las mismas definan el ciclo de vida de un hilo que imprima por pantalla los números entre A y B.
 
-	**Para realizar esta parte, completamos la clase ```CountThread``` de la siguiente forma:**
+**Para realizar esta parte, completamos la clase ```CountThread``` de la siguiente forma:**
+```java
+public class CountThread implements Runnable{
 
-	```java
-	public class CountThread implements Runnable{
+    private int num1, num2;
+    public CountThread(int num1, int num2) {
+        this.num1 = num1;
+        this.num2 = num2;
+    }
 
-	    private int num1, num2;
-	    public CountThread(int num1, int num2) {
-		this.num1 = num1;
-		this.num2 = num2;
-	    }
-	    @Override
-	    public void run(){
-		for (int i=num1; i<=num2; i++){
-		    System.out.println(i);
-		}
-	    }
-	}
-	```
+    @Override
+    public void run(){
+        for (int i=num1; i<=num2; i++){
+            System.out.println(i);
+        }
+    }
+}
+```
 
 2. Complete el método __main__ de la clase CountMainThreads para que:
 	1. Cree 3 hilos de tipo CountThread, asignándole al primero el intervalo [0..99], al segundo [99..199], y al tercero [200..299].
@@ -42,104 +42,99 @@
 	3. Ejecute y revise la salida por pantalla. 
 	4. Cambie el incio con 'start()' por 'run()'. Cómo cambia la salida?, por qué?.
 	
-	**Primero completamos la clase ```CountThreadsMain```, en la cual iniciamos los tres hilos con ```start()```, quedando de la siguiente forma:**
+**Primero completamos la clase ```CountThreadsMain```, en la cual iniciamos los tres hilos con ```start()```, quedando de la siguiente forma:**
 
-	```java
-	public class CountThreadsMain {
-	public static void main(String a[]){
-		CountThread countThread1 = new CountThread(0,99);
-		CountThread countThread2 = new CountThread(99,199);
-		CountThread countThread3 = new CountThread(200,299);
+```java
+public class CountThreadsMain { 
+    public static void main(String a[]){
+        CountThread countThread1 = new CountThread(0,99);
+        CountThread countThread2 = new CountThread(99,199);
+        CountThread countThread3 = new CountThread(200,299);
 
-		Thread hilo1 = new Thread(countThread1);
-		Thread hilo2 = new Thread(countThread2);
-		Thread hilo3 = new Thread(countThread3);
+        Thread hilo1 = new Thread(countThread1);
+        Thread hilo2 = new Thread(countThread2);
+        Thread hilo3 = new Thread(countThread3);
 
-		System.out.println("START THREADS");
-		hilo1.start();
-		hilo2.start();
-		hilo3.start();
-	    }  
-	}
-	```
+        System.out.println("START THREADS");
+        hilo1.start();
+        hilo2.start();
+        hilo3.start();
+    }  
+}
+```
 
-	**Luego de ejecutarlo, la salida por pantalla es la siguiente:**
+**Luego de ejecutarlo, la salida por pantalla es la siguiente:**
 
-	```
-	START THREADS
-	0
-	1
-	2
-	200
-	99
-	100
-	101
-	3
-	4
-	5
-	6
-	7
-	102
-	201
-	202
-	203
-	204
-	103
-	8
-	```
+```
+START THREADS
+0
+1
+2
+200
+99
+100
+101
+3
+4
+5
+6
+7
+102
+201
+202
+203
+204
+103
+8
+```
 
-	**Luego de cambiar el incio con ```start()``` por ```run()```, la clase ```CountThreadsMain``` queda de la siguiente forma:**
+**Luego de cambiar el incio con ```start()``` por ```run()```, la clase ```CountThreadsMain``` queda de la siguiente forma:**
+
+```java
+public class CountThreadsMain { 
+    public static void main(String a[]){
+        CountThread countThread1 = new CountThread(0,99);
+        CountThread countThread2 = new CountThread(99,199);
+        CountThread countThread3 = new CountThread(200,299);
+
+        Thread hilo1 = new Thread(countThread1);
+        Thread hilo2 = new Thread(countThread2);
+        Thread hilo3 = new Thread(countThread3);
+
+        System.out.println("RUN THREADS");
+        hilo1.run();
+        hilo2.run();
+        hilo3.run();
+    }  
+}
+```
 	
-	```java
-	public class CountThreadsMain { 
-    		public static void main(String a[]){
-        		CountThread countThread1 = new CountThread(0,99);
-        		CountThread countThread2 = new CountThread(99,199);
-        		CountThread countThread3 = new CountThread(200,299);
+**Al ejecutarlo, la salida por pantalla queda de la siguiente forma:**
 
-        		Thread hilo1 = new Thread(countThread1);
-        		Thread hilo2 = new Thread(countThread2);
-        		Thread hilo3 = new Thread(countThread3);
-        		/**
-        		System.out.println("START THREADS");
-        		hilo1.start();
-        		hilo2.start();
-        		hilo3.start();
-        		*/
-        		System.out.println("RUN THREADS");
-        		hilo1.run();
-        		hilo2.run();
-        		hilo3.run();
-    		}  
-	}
-	```
-	
-	**Al ejecutarlo, la salida por pantalla queda de la siguiente forma:**
+```
+RUN THREADS
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+```
 
-	```
-	RUN THREADS
-	0
-	1
-	2
-	3
-	4
-	5
-	6
-	7
-	8
-	9
-	10
-	11
-	12
-	13
-	14
-	15
-	16
-	17
-	18
-	```
-
-	**Como vemos, la salida cuando estaba en ```start()``` es diferente a la de ```run()```. En ```start()``` los números los retorna en desorden, y en ```run()``` los números lo retorna en orden, esto se debe a que cuando el programa llama al método ```start()```, se crea un nuevo hilo y el código dentro de ```run()``` se ejecuta en un nuevo hilo, mientras que si llama al método ```run()``` directamente se creará un nuevo hilo y el código dentro de ```run()``` se ejecutará en el hilo actual directamente. Por eso en el programa cuando implementamos ```run()``` se muestra en orden los números y cuando implementamos ```start()``` se ejecutan en desorden.**
+**Como vemos, la salida cuando estaba en ```start()``` es diferente a la de ```run()```. En ```start()``` los números los retorna en desorden, y en ```run()``` los números lo retorna en orden, esto se debe a que cuando el programa llama al método ```start()```, se crea un nuevo hilo y el código dentro de ```run()``` se ejecuta en un nuevo hilo, mientras que si llama al método ```run()``` directamente se creará un nuevo hilo y el código dentro de ```run()``` se ejecutará en el hilo actual directamente. Por eso en el programa cuando implementamos ```run()``` se muestra en orden los números y cuando implementamos ```start()``` se ejecutan en desorden.**
 
 **Parte II - Ejercicio Black List Search**
 
