@@ -9,8 +9,7 @@ package edu.eci.arsw.threads;
  *
  * @author hcadavid
  */
-public class CountThreadsMain {
-    
+public class CountThreadsMain { 
     public static void main(String a[]){
         CountThread countThread1 = new CountThread(0,99);
         CountThread countThread2 = new CountThread(99,199);
@@ -19,7 +18,6 @@ public class CountThreadsMain {
         Thread hilo1 = new Thread(countThread1);
         Thread hilo2 = new Thread(countThread2);
         Thread hilo3 = new Thread(countThread3);
-
         /**
         System.out.println("START THREADS");
         hilo1.start();
@@ -30,6 +28,5 @@ public class CountThreadsMain {
         hilo1.run();
         hilo2.run();
         hilo3.run();
-    }
-    
+    }  
 }
