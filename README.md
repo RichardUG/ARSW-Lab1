@@ -42,7 +42,7 @@
 	3. Ejecute y revise la salida por pantalla. 
 	4. Cambie el incio con 'start()' por 'run()'. Cómo cambia la salida?, por qué?.
 	
-	**Primero completamos la clase ```CountMainThreads```, en la cual iniciamos los tres hilos con ```start()```, quedando de la siguiente forma:**
+	**Primero completamos la clase ```CountThreadsMain```, en la cual iniciamos los tres hilos con ```start()```, quedando de la siguiente forma:**
 
 	```java
 	public class CountThreadsMain {
@@ -113,7 +113,7 @@
 	18
 	```
 
-	**Como vemos la salida cuando estaba en ```start()``` es diferente a la de ```run()```**
+	**Como vemos, la salida cuando estaba en ```start()``` es diferente a la de ```run()```. En ```start()``` los números los retorna en desorden, y en ```run()``` los números lo retorna en orden, esto se debe a que cuando el programa llama al método ```start()```, se crea un nuevo hilo y el código dentro de ```run()``` se ejecuta en un nuevo hilo, mientras que si llama al método ```run()``` directamente se creará un nuevo hilo y el código dentro de ```run()``` se ejecutará en el hilo actual directamente. Por eso en el programa cuando implementamos ```run()``` se muestra en orden los números y cuando implementamos ```start()``` se ejecutan en desorden.**
 
 **Parte II - Ejercicio Black List Search**
 
