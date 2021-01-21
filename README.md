@@ -134,7 +134,7 @@ RUN THREADS
 18
 ```
 
-**Como vemos, la salida cuando estaba en ```start()``` es diferente a la de ```run()```. En ```start()``` los números los retorna en desorden, y en ```run()``` los números lo retorna en orden, esto se debe a que cuando el programa llama al método ```start()```, se crea un nuevo hilo y el código dentro de ```run()``` se ejecuta en un nuevo hilo, mientras que si llama al método ```run()``` directamente se creará un nuevo hilo y el código dentro de ```run()``` se ejecutará en el hilo actual directamente. Por eso en el programa cuando implementamos ```run()``` se muestra en orden los números y cuando implementamos ```start()``` se ejecutan en desorden.**
+Como vemos, la salida cuando estaba en ```start()``` es diferente a la de ```run()```. En ```start()``` los números los retorna en desorden, y en ```run()``` los números lo retorna en orden, esto se debe a que cuando el programa llama al método ```start()```, se crea un nuevo hilo y el código dentro de ```run()``` se ejecuta en un nuevo hilo, mientras que si llama al método ```run()``` directamente se creará un nuevo hilo y el código dentro de ```run()``` se ejecutará en el hilo actual directamente. Por eso en el programa cuando implementamos ```run()``` se muestra en orden los números y cuando implementamos ```start()``` se ejecutan en desorden.
 
 -----------------------------------------------------------------------------------
 
