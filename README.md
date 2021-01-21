@@ -203,3 +203,9 @@ Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tie
 
 
 
+## Autores
+[Alejandro Toro Daza](https://github.com/Skullzo)
+
+[David Fernando Rivera Vargas](https://github.com/DavidRiveraRvD)
+## Licencia
+Licencia bajo la [GNU General Public License](https://github.com/Skullzo/AREP-Lab1/blob/main/LICENSE).
