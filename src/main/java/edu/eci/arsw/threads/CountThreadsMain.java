@@ -20,10 +20,16 @@ public class CountThreadsMain {
         Thread hilo2 = new Thread(countThread2);
         Thread hilo3 = new Thread(countThread3);
 
+        /**
         System.out.println("START THREADS");
         hilo1.start();
         hilo2.start();
         hilo3.start();
+        */
+        System.out.println("RUN THREADS");
+        hilo1.run();
+        hilo2.run();
+        hilo3.run();
     }
     
 }
