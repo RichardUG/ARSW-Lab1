@@ -205,8 +205,11 @@ Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tie
 
 ## Autores
 [Alejandro Toro Daza](https://github.com/Skullzo)
+
 [David Fernando Rivera Vargas](https://github.com/DavidRiveraRvD)
 ## Licencia & Derechos de Autor
 **©** Alejandro Toro Daza, Estudiante de Ingeniería de Sistemas de la Escuela Colombiana de Ingeniería Julio Garavito.
+
       David Fernando Rivera Vargas, Estudiante de Ingeniería de Sistemas de la Escuela Colombiana de Ingeniería Julio Garavito.
+      
 Licencia bajo la [GNU General Public License](https://github.com/Skullzo/AREP-Lab1/blob/main/LICENSE).
