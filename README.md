@@ -221,7 +221,9 @@ public class BlackListThread extends Thread{
 
 	* Se sabe que el HOST 202.24.34.55 está reportado en listas negras de una forma más dispersa, y que el host 212.24.24.55 NO está en ninguna lista negra.
 
+*-----------Agregar contenido acá-----------*
 
+-----------------------------------------------------------------------------------
 
 **Parte II.I Para discutir la próxima clase (NO para implementar aún)**
 
