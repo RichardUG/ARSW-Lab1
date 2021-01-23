@@ -263,8 +263,6 @@ Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tie
 
 *-----------Agregar contenido acá-----------*
 
------------------------------------------------------------------------------------
-
 ## Autores
 [Alejandro Toro Daza](https://github.com/Skullzo)
 
