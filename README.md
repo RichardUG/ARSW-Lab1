@@ -166,11 +166,61 @@ Para 'refactorizar' este código, y hacer que explote la capacidad multi-núcleo
 
 1. Cree una clase de tipo Thread que represente el ciclo de vida de un hilo que haga la búsqueda de un segmento del conjunto de servidores disponibles. Agregue a dicha clase un método que permita 'preguntarle' a las instancias del mismo (los hilos) cuantas ocurrencias de servidores maliciosos ha encontrado o encontró.
 
+Para realizar la siguiente implementación, se creó la clase ```BlackListThread```, en la cual realiza la búsqueda de un segmento del conjunto de servidores disponibles, en la cual en la clase ```run()``` con hilos se encarga de llevar a cabo las ocurrencias de servidores maliciosos ha encontrado o encontró. La clase fue implementada de la siguiente forma.
+
+```java
+package edu.eci.arsw.blacklistvalidator;
+import java.util.LinkedList;
+import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
+
+public class BlackListThread extends Thread{
+    private static final int BLACK_LIST_ALARM_COUNT=5;
+	private int inicio;
+	private int fin;
+	private String Host;
+    HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
+    LinkedList<Integer> blackListOcurrences=new LinkedList<>();
+    private int checkedListsCount;
+    private int ocurrencesCount;
+    
+	public BlackListThread(int i,int f,String Host) { 
+		this.inicio=i;
+		this.fin=f;
+		this.Host=Host;
+		this.checkedListsCount = 0;
+		this.ocurrencesCount = 0;
+	}
+	
+	public void run() {
+        for (int i=inicio;i<fin && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
+            checkedListsCount++;
+            if (skds.isInBlackListServer(i, Host)) {
+                blackListOcurrences.add(i);
+                ocurrencesCount++;
+            }
+        }   
+	}
+	
+	public LinkedList<Integer> getBlackListOcurrences() {
+		return blackListOcurrences;
+	}
+	
+	public int getCheckedListsCount() {
+		return checkedListsCount;
+	}
+	
+	public int getOcurrencesCount() {
+		return ocurrencesCount;
+	}
+}
+```
+
 2. Agregue al método 'checkHost' un parámetro entero N, correspondiente al número de hilos entre los que se va a realizar la búsqueda (recuerde tener en cuenta si N es par o impar!). Modifique el código de este método para que divida el espacio de búsqueda entre las N partes indicadas, y paralelice la búsqueda a través de N hilos. Haga que dicha función espere hasta que los N hilos terminen de resolver su respectivo sub-problema, agregue las ocurrencias encontradas por cada hilo a la lista que retorna el método, y entonces calcule (sumando el total de ocurrencuas encontradas por cada hilo) si el número de ocurrencias es mayor o igual a _BLACK_LIST_ALARM_COUNT_. Si se da este caso, al final se DEBE reportar el host como confiable o no confiable, y mostrar el listado con los números de las listas negras respectivas. Para lograr este comportamiento de 'espera' revise el método [join](https://docs.oracle.com/javase/tutorial/essential/concurrency/join.html) del API de concurrencia de Java. Tenga también en cuenta:
 
 	* Dentro del método checkHost Se debe mantener el LOG que informa, antes de retornar el resultado, el número de listas negras revisadas VS. el número de listas negras total (línea 60). Se debe garantizar que dicha información sea verídica bajo el nuevo esquema de procesamiento en paralelo planteado.
 
 	* Se sabe que el HOST 202.24.34.55 está reportado en listas negras de una forma más dispersa, y que el host 212.24.24.55 NO está en ninguna lista negra.
+
 
 
 **Parte II.I Para discutir la próxima clase (NO para implementar aún)**
