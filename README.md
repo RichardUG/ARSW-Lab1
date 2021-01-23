@@ -166,7 +166,7 @@ Para 'refactorizar' este código, y hacer que explote la capacidad multi-núcleo
 
 1. Cree una clase de tipo Thread que represente el ciclo de vida de un hilo que haga la búsqueda de un segmento del conjunto de servidores disponibles. Agregue a dicha clase un método que permita 'preguntarle' a las instancias del mismo (los hilos) cuantas ocurrencias de servidores maliciosos ha encontrado o encontró.
 
-Para realizar la siguiente implementación, se creó la clase ```BlackListThread```, en la cual realiza la búsqueda de un segmento del conjunto de servidores disponibles, en la cual en la clase ```run()``` con hilos se encarga de llevar a cabo las ocurrencias de servidores maliciosos ha encontrado o encontró. La clase fue implementada de la siguiente forma.
+**Para realizar la siguiente implementación, se creó la clase ```BlackListThread```, en la cual realiza la búsqueda de un segmento del conjunto de servidores disponibles, en la cual en la clase ```run()``` con hilos se encarga de llevar a cabo las ocurrencias de servidores maliciosos ha encontrado o encontró. La clase fue implementada de la siguiente forma.**
 
 ```java
 package edu.eci.arsw.blacklistvalidator;
