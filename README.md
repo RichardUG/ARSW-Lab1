@@ -221,7 +221,69 @@ public class BlackListThread extends Thread{
 
 	* Se sabe que el HOST 202.24.34.55 está reportado en listas negras de una forma más dispersa, y que el host 212.24.24.55 NO está en ninguna lista negra.
 
-*-----------Agregar contenido acá-----------*
+**A continuación, implementamos el método ```checkHost```, el cual se encarga de dadas unas direcciones IP del Host en todas las Black List disponibles, las reporta como confiables (trustworthy) o no confiables (not trustworthy), teniendo en cuenta el ```BLACK_LIST_ALARM_COUNT```, el cual si el número de ocurrencias es mayor al del ```BLACK_LIST_ALARM_COUNT```, se reporta la dirección IP como no confiable, paralelizando la búsqueda a través de hilos, los cuales son los encargados de calcular si el número de ocurrencias es mayor o igual a ```BLACK_LIST_ALARM_COUNT```, de tal forma que la función espera hasta que os N hilos terminen de resolver su respectivo sub-problema, para así realizar una búsqueda paralelizada para reportar si el host es confiable o no confiable.**
+
+```java
+package edu.eci.arsw.blacklistvalidator;
+import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class HostBlackListsValidator {
+
+    private static final int BLACK_LIST_ALARM_COUNT=5;
+    /**
+     * Check the given host's IP address in all the available black lists,
+     * and report it as NOT Trustworthy when such IP was reported in at least
+     * BLACK_LIST_ALARM_COUNT lists, or as Trustworthy in any other case.
+     * The search is not exhaustive: When the number of occurrences is equal to
+     * BLACK_LIST_ALARM_COUNT, the search is finished, the host reported as
+     * NOT Trustworthy, and the list of the five blacklists returned.
+     * @param ipaddress suspicious host's IP address.
+     * @return Blacklists numbers where the given host's IP address was found.
+     */   
+    public List<Integer> checkHost(String ipaddress,int N) throws InterruptedException{  
+        LinkedList<Integer> blackListOcurrences=new LinkedList<>();
+        ArrayList<BlackListThread> threads = new ArrayList<BlackListThread>();
+        int ocurrencesCount=0;
+        HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
+        int count = skds.getRegisteredServersCount()/N;
+        int mod = skds.getRegisteredServersCount()%N;
+        for (int i = 0;i<N;i++) {
+        		if(i == N-1) {
+        			BlackListThread h = new BlackListThread((i*count),(i*count) + count + mod ,ipaddress);
+        			threads.add(h);
+        			h.start();
+        		}else {
+        			BlackListThread h = new BlackListThread((i*count),(i*count)+count,ipaddress);
+        			threads.add(h);
+        			h.start();
+        		}
+        }
+        for (BlackListThread thread : threads) {
+        	thread.join();
+        }
+        int checkedListsCount=0;
+        for (BlackListThread thread : threads) {
+        	checkedListsCount += thread.getCheckedListsCount();
+        	ocurrencesCount += thread.getOcurrencesCount();
+        	blackListOcurrences.addAll(thread.getBlackListOcurrences());
+        }
+        if (ocurrencesCount>=BLACK_LIST_ALARM_COUNT){
+            skds.reportAsNotTrustworthy(ipaddress);
+        }
+        else{
+            skds.reportAsTrustworthy(ipaddress);
+        } 
+        LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount, skds.getRegisteredServersCount()});
+        return blackListOcurrences;
+    }
+    private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName());   
+}
+```
 
 -----------------------------------------------------------------------------------
 
