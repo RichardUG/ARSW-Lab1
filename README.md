@@ -175,9 +175,9 @@ import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
 
 public class BlackListThread extends Thread{
     private static final int BLACK_LIST_ALARM_COUNT=5;
-	private int inicio;
-	private int fin;
-	private String Host;
+    private int inicio;
+    private int fin;
+    private String Host;
     HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
     LinkedList<Integer> blackListOcurrences=new LinkedList<>();
     private int checkedListsCount;
