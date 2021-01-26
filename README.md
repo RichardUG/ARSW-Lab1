@@ -315,15 +315,16 @@ Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tie
 
 	![](img/ahmdahls.png), donde _S(n)_ es el mejoramiento teórico del desempeño, _P_ la fracción paralelizable del algoritmo, y _n_ el número de hilos, a mayor _n_, mayor debería ser dicha mejora. Por qué el mejor desempeño no se logra con los 500 hilos?, cómo se compara este desempeño cuando se usan 200?.
 	
-*-----------Agregar contenido acá-----------*
+	* Si revisamos resultados observamos que el tiempo de ejecución es muy reducido para un numero de hilos pequeño, observamos que si aumentan la cantidad de hilos será menor el tiempo que este tarda en ejecutarlo. Si aumentamos el número de Hilos obtendremos una mejora o incremento del rendimiento del programa. Si tomamos el caso de los 200 y 500 Hilos observaremos que el rendimiento no será un diferenciador muy grande, esto porque el tiempo de rendimiento será una ejecución constante.
+	
 
 2. Cómo se comporta la solución usando tantos hilos de procesamiento como núcleos comparado con el resultado de usar el doble de éste?.
 
-*-----------Agregar contenido acá-----------*
+	* Podríamos concluir que si tenemos el doble de procesos podríamos obtener la mitad de tiempo de ejecución, pero no es así precisamente, el aumento de rendimiento de tiempo de ejecución no es significativo. Y lo comprobamos de pasar de 8 a 16 hilos. 
+	
 
 3. De acuerdo con lo anterior, si para este problema en lugar de 100 hilos en una sola CPU se pudiera usar 1 hilo en cada una de 100 máquinas hipotéticas, la ley de Amdahls se aplicaría mejor?. Si en lugar de esto se usaran c hilos en 100/c máquinas distribuidas (siendo c es el número de núcleos de dichas máquinas), se mejoraría?. Explique su respuesta.
-
-*-----------Agregar contenido acá-----------*
+	* La ley de Amdahl puede decirnos que si aumentamos la cantidad de hilos aspiramos a obtener una mejora en el rendimiento de los tiempos de ejecución, de esta manera si usamos una computadora para ejecutar 100 hilos obtendríamos un beneficio en la eficacia del desarrollo de estos, si usamos 100 computadoras para desarrollar un hilo cada una de ellas podríamos concluir que seria un gasto innecesario de recursos y el tiempo aumentaría al desarrollarse este tipo de procedimientos. 
 
 ## Autores
 [Alejandro Toro Daza](https://github.com/Skullzo)

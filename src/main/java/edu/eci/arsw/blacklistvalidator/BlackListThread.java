@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
 
 public class BlackListThread extends Thread{
+
     private static final int BLACK_LIST_ALARM_COUNT=5;
 	private int inicio;
 	private int fin;
