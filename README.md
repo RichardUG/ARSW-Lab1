@@ -306,7 +306,7 @@ Finalmente, ejecutamos el programa con 100 hilos. Vemos que el tiempo de ejecuci
 
 ![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100Hilos.PNG)
 
-Al iniciar el programa ejecute el monitor jVisualVM, y a medida que corran las pruebas, revise y anote el consumo de CPU y de memoria en cada caso. ![](img/jvisualvm.png)
+
 
 Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
 
