@@ -268,7 +268,7 @@ public List<Integer> checkHost(String ipaddress,int N) throws InterruptedExcepti
 
 La estrategia de paralelismo antes implementada es ineficiente en ciertos casos, pues la búsqueda se sigue realizando aún cuando los N hilos (en su conjunto) ya hayan encontrado el número mínimo de ocurrencias requeridas para reportar al servidor como malicioso. Cómo se podría modificar la implementación para minimizar el número de consultas en estos casos?, qué elemento nuevo traería esto al problema?
 
-	* Podríamos considerar que la estrategia la podemos mejorar para que cuando consideremos dicho numero de ocurrencias como maliciosas pues dejemos de buscar estas ocurrencias y optimizar el tiempo, en este caso utilizamos una variable atómica, que nos hace el trabajo de tener una variable global para los distintos hilos. 
+Podríamos considerar que la estrategia la podemos mejorar para que cuando consideremos dicho numero de ocurrencias como maliciosas pues dejemos de buscar estas ocurrencias y optimizar el tiempo, en este caso utilizamos una variable atómica, que nos hace el trabajo de tener una variable global para los distintos hilos. 
 	
 
 -----------------------------------------------------------------------------------
