@@ -277,20 +277,44 @@ La estrategia de paralelismo antes implementada es ineficiente en ciertos casos,
 A partir de lo anterior, implemente la siguiente secuencia de experimentos para realizar las validación de direcciones IP dispersas (por ejemplo 202.24.34.55), tomando los tiempos de ejecución de los mismos (asegúrese de hacerlos en la misma máquina):
 
 1. Un solo hilo.
+
+A continuación, ejecutamos el programa realizando las respectivas validaciones de direcciones IP dispersas, el cual se ejecuta en aproximadamente en 109738 milisegundos con un solo hilo, como se puede ver en la siguiente imagen.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1Hilo.PNG)
+
 2. Tantos hilos como núcleos de procesamiento (haga que el programa determine esto haciendo uso del [API Runtime](https://docs.oracle.com/javase/7/docs/api/java/lang/Runtime.html)).
+
+Ahora, realizamos el mismo procedimiento que en el paso anterior, pero esta ves con 8 hilos. Como se puede observar en la siguiente imagen, el tiempo de ejecución es de aproximadamente 20847 milisegundos.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8Hilos.PNG)
+
 3. Tantos hilos como el doble de núcleos de procesamiento.
+
+Luego realizamos el mismo experimento pero esta ves con el doble de núcleos de procesamiento, en este caso, 16 hilos. Luego de realizar el experimento, el tiempo de ejecución es de aproximadamente 10922 milisegundos.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16Hilos.PNG)
+
 4. 50 hilos.
+
+Ahora realizamos el mismo experimento pero con 50 hilos. Como vemos el tiempo de ejecución del programa se ha reducido considerablemente comparado con 16 hilos, arrojando aproximadamente 3596 milisegundos de tiempo de ejecución.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50Hilos.PNG)
+
 5. 100 hilos.
+
+Finalmente, ejecutamos el programa con 100 hilos. Vemos que el tiempo de ejecución es muy rápido en comparación con los experimentos anteriores, arrojando un tiempo de ejecución de aproximadamente **2042 milisegundos**.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100Hilos.PNG)
 
 Al iniciar el programa ejecute el monitor jVisualVM, y a medida que corran las pruebas, revise y anote el consumo de CPU y de memoria en cada caso. ![](img/jvisualvm.png)
 
 Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
 
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1Hilo.PNG)
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8Hilos.PNG)
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16Hilos.PNG)
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50Hilos.PNG)
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100Hilos.PNG)
+
+
+
+
+
 *-----------Agregar contenido acá-----------*
 
 1. Según la [ley de Amdahls](https://www.pugetsystems.com/labs/articles/Estimating-CPU-Performance-using-Amdahls-Law-619/#WhatisAmdahlsLaw?):
