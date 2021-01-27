@@ -338,7 +338,9 @@ Teniendo en cuenta los datos recolectados después de haber realizado el experim
 
 1. Según la [ley de Amdahls](https://www.pugetsystems.com/labs/articles/Estimating-CPU-Performance-using-Amdahls-Law-619/#WhatisAmdahlsLaw?):
 
-	![](img/ahmdahls.png), donde _S(n)_ es el mejoramiento teórico del desempeño, _P_ la fracción paralelizable del algoritmo, y _n_ el número de hilos, a mayor _n_, mayor debería ser dicha mejora. Por qué el mejor desempeño no se logra con los 500 hilos?, cómo se compara este desempeño cuando se usan 200?.
+	![](img/ahmdahls.png)
+	
+	Donde _S(n)_ es el mejoramiento teórico del desempeño, _P_ la fracción paralelizable del algoritmo, y _n_ el número de hilos, a mayor _n_, mayor debería ser dicha mejora. Por qué el mejor desempeño no se logra con los 500 hilos?, cómo se compara este desempeño cuando se usan 200?.
 	
 	* Si revisamos resultados observamos que el tiempo de ejecución es muy reducido para un numero de hilos pequeño, observamos que si aumentan la cantidad de hilos será menor el tiempo que este tarda en ejecutarlo. Si aumentamos el número de Hilos obtendremos una mejora o incremento del rendimiento del programa. Si tomamos el caso de los 200 y 500 Hilos observaremos que el rendimiento no será un diferenciador muy grande, esto porque el tiempo de rendimiento será una ejecución constante.
 	
@@ -349,7 +351,7 @@ Teniendo en cuenta los datos recolectados después de haber realizado el experim
 	
 
 3. De acuerdo con lo anterior, si para este problema en lugar de 100 hilos en una sola CPU se pudiera usar 1 hilo en cada una de 100 máquinas hipotéticas, la ley de Amdahls se aplicaría mejor?. Si en lugar de esto se usaran c hilos en 100/c máquinas distribuidas (siendo c es el número de núcleos de dichas máquinas), se mejoraría?. Explique su respuesta.
-	* La ley de Amdahl puede decirnos que si aumentamos la cantidad de hilos aspiramos a obtener una mejora en el rendimiento de los tiempos de ejecución, de esta manera si usamos una computadora para ejecutar 100 hilos obtendríamos un beneficio en la eficacia del desarrollo de estos, si usamos 100 computadoras para desarrollar un hilo cada una de ellas podríamos concluir que seria un gasto innecesario de recursos y el tiempo aumentaría al desarrollarse este tipo de procedimientos. 
+	* La ley de Amdahls puede decirnos que si aumentamos la cantidad de hilos aspiramos a obtener una mejora en el rendimiento de los tiempos de ejecución, de esta manera si usamos una computadora para ejecutar 100 hilos obtendríamos un beneficio en la eficacia del desarrollo de estos, si usamos 100 computadoras para desarrollar un hilo cada una de ellas podríamos concluir que seria un gasto innecesario de recursos y el tiempo aumentaría al desarrollarse este tipo de procedimientos. 
 
 ## Autores
 [Alejandro Toro Daza](https://github.com/Skullzo)
