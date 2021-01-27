@@ -4,19 +4,16 @@
  * and open the template in the editor.
  */
 package edu.eci.arsw.threads;
-
 /**
  *
  * @author hcadavid
  */
 public class CountThread implements Runnable{
-
     private int num1, num2;
     public CountThread(int num1, int num2) {
         this.num1 = num1;
         this.num2 = num2;
     }
-
     @Override
     public void run(){
         for (int i=num1; i<=num2; i++){

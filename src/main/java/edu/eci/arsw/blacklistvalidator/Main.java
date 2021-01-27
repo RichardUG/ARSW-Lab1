@@ -10,7 +10,6 @@ import java.util.List;
  * @author hcadavid
  */
 public class Main {
-    
 	public static void main(String a[]) throws InterruptedException{
 		long startTime = System.currentTimeMillis();
         HostBlackListsValidator hblv=new HostBlackListsValidator();
