@@ -332,15 +332,9 @@ Finalmente, en el último experimento con 100 hilos ya vemos que la gráfica **T
 
 Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
 
+Teniendo en cuenta los datos recolectados después de haber realizado el experimento anterior, realizamos una gráfica de Tiempo de solución vs. Número de hilos, donde el eje X de la gráfica es el Tiempo en milisegundos, y el eje Y de la gráfica son el número de hilos, como se puede observar en la imagen. Claramente se ve una clara diferencia en cuanto a tiempo de ejecución, mas que todo comparando con 1 hilo y con 100 hilos.
 
-
-
-
-
-
-
-
-*-----------Agregar contenido acá-----------*
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/TablaYgrafica.png)
 
 1. Según la [ley de Amdahls](https://www.pugetsystems.com/labs/articles/Estimating-CPU-Performance-using-Amdahls-Law-619/#WhatisAmdahlsLaw?):
 
