@@ -286,11 +286,19 @@ A continuación, ejecutamos el programa realizando las respectivas validaciones 
 
 ![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1Hilo.PNG)
 
+Al ejecutar el monitor Java VisualVM justo al empezar el primer experimento con 1 hilo, vemos que en la gráfica de **Threads** se extiende por el eje X que representa el tiempo, esto se debe a que con un solo hilo es cuando el programa más se demora en ejecutar todas las operaciones pertinentes.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1HiloVisualVM.PNG)
+
 2. Tantos hilos como núcleos de procesamiento (haga que el programa determine esto haciendo uso del [API Runtime](https://docs.oracle.com/javase/7/docs/api/java/lang/Runtime.html)).
 
 Ahora, realizamos el mismo procedimiento que en el paso anterior, pero esta ves con 8 hilos. Como se puede observar en la siguiente imagen, el tiempo de ejecución es de aproximadamente 20847 milisegundos.
 
 ![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8Hilos.PNG)
+
+Luego de revisar Java VisualVM mientras se ejecutaban las pruebas, se evidencia una clara diferencia en cuanto a rendimiento. En la gráfica de **Threads**, vemos que se ha reducido un poco el tamaño de la gráfica con respecto al eje X.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8HilosVisualVM.PNG)
 
 3. Tantos hilos como el doble de núcleos de procesamiento.
 
@@ -298,27 +306,37 @@ Luego realizamos el mismo experimento pero esta ves con el doble de núcleos de 
 
 ![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16Hilos.PNG)
 
+Al realizar las pruebas con 16 hilos, vemos que se ha reducido un poco el tamaño de la gráfica de **Threads** con respecto a la de 8 hilos, representando una clara diferencia de tiempo de ejecución con respecto al experimento anterior.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16HilosVisualVM.PNG)
+
 4. 50 hilos.
 
 Ahora realizamos el mismo experimento pero con 50 hilos. Como vemos el tiempo de ejecución del programa se ha reducido considerablemente comparado con 16 hilos, arrojando aproximadamente 3596 milisegundos de tiempo de ejecución.
 
 ![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50Hilos.PNG)
 
+Ya al realizar la verificación de rendimiento con 50 hilos, se empieza ya a reducir considerablemente la gráfica de **Threads**, verificando por este medio que el tiempo de ejecución con respecto a 16 hilos ha sido reducido considerablemente.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50HilosVisualVM.PNG)
+
 5. 100 hilos.
 
-Finalmente, ejecutamos el programa con 100 hilos. Vemos que el tiempo de ejecución es muy rápido en comparación con los experimentos anteriores, arrojando un tiempo de ejecución de aproximadamente **2042 milisegundos**.
+Después ejecutamos el programa con 100 hilos. Vemos que el tiempo de ejecución es muy rápido en comparación con los experimentos anteriores, arrojando un tiempo de ejecución de aproximadamente **2042 milisegundos**.
 
 ![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100Hilos.PNG)
 
+Finalmente, en el último experimento con 100 hilos ya vemos que la gráfica **Threads** se comporta de manera diferente, la cual nos evidencia en cuanto a tamaño en el eje X que el tiempo de ejecución es mucho menor que cuando se realizó el experimento con 50 hilos.
 
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100HilosVisualVM.PNG)
 
 Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
 
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1HiloVisualVM.PNG)
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8HilosVisualVM.PNG)
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16HilosVisualVM.PNG)
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50HilosVisualVM.PNG)
-![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100HilosVisualVM.PNG)
+
+
+
+
+
 
 
 
