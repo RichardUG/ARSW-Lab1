@@ -163,10 +163,6 @@ Para 'refactorizar' este código, y hacer que explote la capacidad multi-núcleo
 **Para realizar la siguiente implementación, se creó la clase ```BlackListThread```, en la cual realiza la búsqueda de un segmento del conjunto de servidores disponibles, en la cual en la clase ```run()``` con hilos se encarga de llevar a cabo las ocurrencias de servidores maliciosos ha encontrado o encontró. La clase fue implementada de la siguiente forma.**
 
 ```java
-package edu.eci.arsw.blacklistvalidator;
-import java.util.LinkedList;
-import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
-
 public class BlackListThread extends Thread{
     private static final int BLACK_LIST_ALARM_COUNT=5;
     private int inicio;
@@ -176,36 +172,31 @@ public class BlackListThread extends Thread{
     LinkedList<Integer> blackListOcurrences=new LinkedList<>();
     private int checkedListsCount;
     private int ocurrencesCount;
-    
-	public BlackListThread(int i,int f,String Host) { 
-		this.inicio=i;
-		this.fin=f;
-		this.Host=Host;
-		this.checkedListsCount = 0;
-		this.ocurrencesCount = 0;
-	}
-	
-	public void run() {
+    public BlackListThread(int i,int f,String Host) { 
+	this.inicio=i;
+	this.fin=f;
+	this.Host=Host;
+	this.checkedListsCount = 0;
+	this.ocurrencesCount = 0;
+    }
+    public void run() {
         for (int i=inicio;i<fin && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
             checkedListsCount++;
             if (skds.isInBlackListServer(i, Host)) {
                 blackListOcurrences.add(i);
                 ocurrencesCount++;
             }
-        }   
-	}
-	
-	public LinkedList<Integer> getBlackListOcurrences() {
-		return blackListOcurrences;
-	}
-	
-	public int getCheckedListsCount() {
-		return checkedListsCount;
-	}
-	
-	public int getOcurrencesCount() {
-		return ocurrencesCount;
-	}
+        } 
+    }
+    public LinkedList<Integer> getBlackListOcurrences() {
+	return blackListOcurrences;
+    }
+    public int getCheckedListsCount() {
+	return checkedListsCount;
+    }
+    public int getOcurrencesCount() {
+	return ocurrencesCount;
+    }
 }
 ```
 
@@ -218,16 +209,7 @@ public class BlackListThread extends Thread{
 **A continuación, implementamos el método ```checkHost```, el cual se encarga de dadas unas direcciones IP del Host en todas las Black List disponibles, las reporta como confiables (trustworthy) o no confiables (not trustworthy), teniendo en cuenta el ```BLACK_LIST_ALARM_COUNT```, el cual si el número de ocurrencias es mayor al del ```BLACK_LIST_ALARM_COUNT```, se reporta la dirección IP como no confiable, paralelizando la búsqueda a través de hilos, los cuales son los encargados de calcular si el número de ocurrencias es mayor o igual a ```BLACK_LIST_ALARM_COUNT```, de tal forma que la función espera hasta que los N hilos terminen de resolver su respectivo sub-problema, para así realizar una búsqueda paralelizada para reportar si el host es confiable o no confiable.**
 
 ```java
-package edu.eci.arsw.blacklistvalidator;
-import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class HostBlackListsValidator {
-
     private static final int BLACK_LIST_ALARM_COUNT=5;
     /**
      * Check the given host's IP address in all the available black lists,
@@ -239,10 +221,10 @@ public class HostBlackListsValidator {
      * @param ipaddress suspicious host's IP address.
      * @return Blacklists numbers where the given host's IP address was found.
      */   
-    public List<Integer> checkHost(String ipaddress,int N) throws InterruptedException{  
+public List<Integer> checkHost(String ipaddress,int N) throws InterruptedException{
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
-        ArrayList<BlackListThread> threads = new ArrayList<BlackListThread>();
-        int ocurrencesCount=0;
+        ArrayList<BlackListThread> threads = new ArrayList<BlackListThread>();       
+        int ocurrencesCount=0;        
         HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
         int count = skds.getRegisteredServersCount()/N;
         int mod = skds.getRegisteredServersCount()%N;
@@ -271,11 +253,12 @@ public class HostBlackListsValidator {
         }
         else{
             skds.reportAsTrustworthy(ipaddress);
-        } 
+        }                  
         LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount, skds.getRegisteredServersCount()});
+        
         return blackListOcurrences;
-    }
-    private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName());   
+    } 
+    private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName()); 
 }
 ```
 
@@ -293,15 +276,69 @@ La estrategia de paralelismo antes implementada es ineficiente en ciertos casos,
 
 A partir de lo anterior, implemente la siguiente secuencia de experimentos para realizar las validación de direcciones IP dispersas (por ejemplo 202.24.34.55), tomando los tiempos de ejecución de los mismos (asegúrese de hacerlos en la misma máquina):
 
+Al iniciar el programa ejecute el monitor jVisualVM, y a medida que corran las pruebas, revise y anote el consumo de CPU y de memoria en cada caso. 
+
+![](img/jvisualvm.png)
+
 1. Un solo hilo.
+
+A continuación, ejecutamos el programa realizando las respectivas validaciones de direcciones IP dispersas, el cual se ejecuta en aproximadamente en 109738 milisegundos con un solo hilo, como se puede ver en la siguiente imagen.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1Hilo.PNG)
+
+Al ejecutar el monitor Java VisualVM justo al empezar el primer experimento con 1 hilo, vemos que en la gráfica de **Threads** se extiende por el eje X que representa el tiempo, esto se debe a que con un solo hilo es cuando el programa más se demora en ejecutar todas las operaciones pertinentes.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1HiloVisualVM.PNG)
+
 2. Tantos hilos como núcleos de procesamiento (haga que el programa determine esto haciendo uso del [API Runtime](https://docs.oracle.com/javase/7/docs/api/java/lang/Runtime.html)).
+
+Ahora, realizamos el mismo procedimiento que en el paso anterior, pero esta ves con 8 hilos. Como se puede observar en la siguiente imagen, el tiempo de ejecución es de aproximadamente 20847 milisegundos.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8Hilos.PNG)
+
+Luego de revisar Java VisualVM mientras se ejecutaban las pruebas, se evidencia una clara diferencia en cuanto a rendimiento. En la gráfica de **Threads**, vemos que se ha reducido un poco el tamaño de la gráfica con respecto al eje X.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8HilosVisualVM.PNG)
+
 3. Tantos hilos como el doble de núcleos de procesamiento.
+
+Luego realizamos el mismo experimento pero esta ves con el doble de núcleos de procesamiento, en este caso, 16 hilos. Luego de realizar el experimento, el tiempo de ejecución es de aproximadamente 10922 milisegundos.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16Hilos.PNG)
+
+Al realizar las pruebas con 16 hilos, vemos que se ha reducido un poco el tamaño de la gráfica de **Threads** con respecto a la de 8 hilos, representando una clara diferencia de tiempo de ejecución con respecto al experimento anterior.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16HilosVisualVM.PNG)
+
 4. 50 hilos.
+
+Ahora realizamos el mismo experimento pero con 50 hilos. Como vemos el tiempo de ejecución del programa se ha reducido considerablemente comparado con 16 hilos, arrojando aproximadamente 3596 milisegundos de tiempo de ejecución.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50Hilos.PNG)
+
+Ya al realizar la verificación de rendimiento con 50 hilos, se empieza ya a reducir considerablemente la gráfica de **Threads**, verificando por este medio que el tiempo de ejecución con respecto a 16 hilos ha sido reducido considerablemente.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50HilosVisualVM.PNG)
+
 5. 100 hilos.
 
-Al iniciar el programa ejecute el monitor jVisualVM, y a medida que corran las pruebas, revise y anote el consumo de CPU y de memoria en cada caso. ![](img/jvisualvm.png)
+Después ejecutamos el programa con 100 hilos. Vemos que el tiempo de ejecución es muy rápido en comparación con los experimentos anteriores, arrojando un tiempo de ejecución de aproximadamente **2042 milisegundos**.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100Hilos.PNG)
+
+Finalmente, en el último experimento con 100 hilos ya vemos que la gráfica **Threads** se comporta de manera diferente, la cual nos evidencia en cuanto a tamaño en el eje X que el tiempo de ejecución es mucho menor que cuando se realizó el experimento con 50 hilos.
+
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100HilosVisualVM.PNG)
 
 Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
+
+
+
+
+
+
+
+
 
 *-----------Agregar contenido acá-----------*
 
