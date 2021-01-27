@@ -20,13 +20,11 @@
 **Para realizar esta parte, completamos la clase ```CountThread``` de la siguiente forma:**
 ```java
 public class CountThread implements Runnable{
-
     private int num1, num2;
     public CountThread(int num1, int num2) {
         this.num1 = num1;
         this.num2 = num2;
     }
-
     @Override
     public void run(){
         for (int i=num1; i<=num2; i++){
@@ -54,8 +52,7 @@ public class CountThreadsMain {
         Thread hilo1 = new Thread(countThread1);
         Thread hilo2 = new Thread(countThread2);
         Thread hilo3 = new Thread(countThread3);
-
-        System.out.println("START THREADS");
+        
         hilo1.start();
         hilo2.start();
         hilo3.start();
@@ -66,7 +63,6 @@ public class CountThreadsMain {
 **Luego de ejecutarlo, la salida por pantalla es la siguiente:**
 
 ```
-START THREADS
 0
 1
 2
@@ -100,8 +96,7 @@ public class CountThreadsMain {
         Thread hilo1 = new Thread(countThread1);
         Thread hilo2 = new Thread(countThread2);
         Thread hilo3 = new Thread(countThread3);
-
-        System.out.println("RUN THREADS");
+        
         hilo1.run();
         hilo2.run();
         hilo3.run();
@@ -112,7 +107,6 @@ public class CountThreadsMain {
 **Al ejecutarlo, la salida por pantalla queda de la siguiente forma:**
 
 ```
-RUN THREADS
 0
 1
 2
