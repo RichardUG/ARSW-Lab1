@@ -276,6 +276,10 @@ La estrategia de paralelismo antes implementada es ineficiente en ciertos casos,
 
 A partir de lo anterior, implemente la siguiente secuencia de experimentos para realizar las validación de direcciones IP dispersas (por ejemplo 202.24.34.55), tomando los tiempos de ejecución de los mismos (asegúrese de hacerlos en la misma máquina):
 
+Al iniciar el programa ejecute el monitor jVisualVM, y a medida que corran las pruebas, revise y anote el consumo de CPU y de memoria en cada caso. 
+
+![](img/jvisualvm.png)
+
 1. Un solo hilo.
 
 A continuación, ejecutamos el programa realizando las respectivas validaciones de direcciones IP dispersas, el cual se ejecuta en aproximadamente en 109738 milisegundos con un solo hilo, como se puede ver en la siguiente imagen.
