@@ -310,8 +310,11 @@ Al iniciar el programa ejecute el monitor jVisualVM, y a medida que corran las p
 
 Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
 
-
-
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1HiloVisualVM.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8HilosVisualVM.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16HilosVisualVM.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50HilosVisualVM.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100HilosVisualVM.PNG)
 
 
 
