@@ -163,10 +163,6 @@ Para 'refactorizar' este código, y hacer que explote la capacidad multi-núcleo
 **Para realizar la siguiente implementación, se creó la clase ```BlackListThread```, en la cual realiza la búsqueda de un segmento del conjunto de servidores disponibles, en la cual en la clase ```run()``` con hilos se encarga de llevar a cabo las ocurrencias de servidores maliciosos ha encontrado o encontró. La clase fue implementada de la siguiente forma.**
 
 ```java
-package edu.eci.arsw.blacklistvalidator;
-import java.util.LinkedList;
-import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
-
 public class BlackListThread extends Thread{
     private static final int BLACK_LIST_ALARM_COUNT=5;
     private int inicio;
@@ -176,36 +172,31 @@ public class BlackListThread extends Thread{
     LinkedList<Integer> blackListOcurrences=new LinkedList<>();
     private int checkedListsCount;
     private int ocurrencesCount;
-    
-	public BlackListThread(int i,int f,String Host) { 
-		this.inicio=i;
-		this.fin=f;
-		this.Host=Host;
-		this.checkedListsCount = 0;
-		this.ocurrencesCount = 0;
-	}
-	
-	public void run() {
+    public BlackListThread(int i,int f,String Host) { 
+	this.inicio=i;
+	this.fin=f;
+	this.Host=Host;
+	this.checkedListsCount = 0;
+	this.ocurrencesCount = 0;
+    }
+    public void run() {
         for (int i=inicio;i<fin && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
             checkedListsCount++;
             if (skds.isInBlackListServer(i, Host)) {
                 blackListOcurrences.add(i);
                 ocurrencesCount++;
             }
-        }   
-	}
-	
-	public LinkedList<Integer> getBlackListOcurrences() {
-		return blackListOcurrences;
-	}
-	
-	public int getCheckedListsCount() {
-		return checkedListsCount;
-	}
-	
-	public int getOcurrencesCount() {
-		return ocurrencesCount;
-	}
+        } 
+    }
+    public LinkedList<Integer> getBlackListOcurrences() {
+	return blackListOcurrences;
+    }
+    public int getCheckedListsCount() {
+	return checkedListsCount;
+    }
+    public int getOcurrencesCount() {
+	return ocurrencesCount;
+    }
 }
 ```
 
@@ -218,16 +209,7 @@ public class BlackListThread extends Thread{
 **A continuación, implementamos el método ```checkHost```, el cual se encarga de dadas unas direcciones IP del Host en todas las Black List disponibles, las reporta como confiables (trustworthy) o no confiables (not trustworthy), teniendo en cuenta el ```BLACK_LIST_ALARM_COUNT```, el cual si el número de ocurrencias es mayor al del ```BLACK_LIST_ALARM_COUNT```, se reporta la dirección IP como no confiable, paralelizando la búsqueda a través de hilos, los cuales son los encargados de calcular si el número de ocurrencias es mayor o igual a ```BLACK_LIST_ALARM_COUNT```, de tal forma que la función espera hasta que los N hilos terminen de resolver su respectivo sub-problema, para así realizar una búsqueda paralelizada para reportar si el host es confiable o no confiable.**
 
 ```java
-package edu.eci.arsw.blacklistvalidator;
-import edu.eci.arsw.spamkeywordsdatasource.HostBlacklistsDataSourceFacade;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class HostBlackListsValidator {
-
     private static final int BLACK_LIST_ALARM_COUNT=5;
     /**
      * Check the given host's IP address in all the available black lists,
@@ -239,10 +221,10 @@ public class HostBlackListsValidator {
      * @param ipaddress suspicious host's IP address.
      * @return Blacklists numbers where the given host's IP address was found.
      */   
-    public List<Integer> checkHost(String ipaddress,int N) throws InterruptedException{  
+public List<Integer> checkHost(String ipaddress,int N) throws InterruptedException{
         LinkedList<Integer> blackListOcurrences=new LinkedList<>();
-        ArrayList<BlackListThread> threads = new ArrayList<BlackListThread>();
-        int ocurrencesCount=0;
+        ArrayList<BlackListThread> threads = new ArrayList<BlackListThread>();       
+        int ocurrencesCount=0;        
         HostBlacklistsDataSourceFacade skds=HostBlacklistsDataSourceFacade.getInstance();
         int count = skds.getRegisteredServersCount()/N;
         int mod = skds.getRegisteredServersCount()%N;
@@ -271,11 +253,12 @@ public class HostBlackListsValidator {
         }
         else{
             skds.reportAsTrustworthy(ipaddress);
-        } 
+        }                  
         LOG.log(Level.INFO, "Checked Black Lists:{0} of {1}", new Object[]{checkedListsCount, skds.getRegisteredServersCount()});
+        
         return blackListOcurrences;
-    }
-    private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName());   
+    } 
+    private static final Logger LOG = Logger.getLogger(HostBlackListsValidator.class.getName()); 
 }
 ```
 
@@ -303,6 +286,11 @@ Al iniciar el programa ejecute el monitor jVisualVM, y a medida que corran las p
 
 Con lo anterior, y con los tiempos de ejecución dados, haga una gráfica de tiempo de solución vs. número de hilos. Analice y plantee hipótesis con su compañero para las siguientes preguntas (puede tener en cuenta lo reportado por jVisualVM):
 
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/1Hilo.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/8Hilos.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/16Hilos.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/50Hilos.PNG)
+![img](https://github.com/Skullzo/ARSW-Lab1/blob/main/img/100Hilos.PNG)
 *-----------Agregar contenido acá-----------*
 
 1. Según la [ley de Amdahls](https://www.pugetsystems.com/labs/articles/Estimating-CPU-Performance-using-Amdahls-Law-619/#WhatisAmdahlsLaw?):
