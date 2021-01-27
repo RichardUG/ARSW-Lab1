@@ -18,15 +18,13 @@ public class BlackListThread extends Thread{
 		this.ocurrencesCount = 0;
 	}
 	public void run() {
-
         for (int i=inicio;i<fin && ocurrencesCount<BLACK_LIST_ALARM_COUNT;i++){
             checkedListsCount++;
             if (skds.isInBlackListServer(i, Host)) {
                 blackListOcurrences.add(i);
                 ocurrencesCount++;
             }
-        }
-        
+        }   
 	}
 	public LinkedList<Integer> getBlackListOcurrences() {
 		return blackListOcurrences;
